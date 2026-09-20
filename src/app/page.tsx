@@ -117,11 +117,21 @@ const useCases = [
   },
 ];
 
-const rows = [
-  { vehicle: "8KJR291", trip: "Mar 3 – Mar 7", party: "Guest · D. Reyes", expense: "FasTrak toll", status: "Matched", amount: "$18.75" },
-  { vehicle: "TRK-4420", trip: "Mar 5 · Route 61", party: "Driver · M. Osei", expense: "Toll-by-plate", status: "Matched", amount: "$42.10" },
-  { vehicle: "6PLM880", trip: "Mar 9 – Mar 11", party: "Renter · A. Whitfield", expense: "Parking violation", status: "Matched", amount: "$65.00" },
-  { vehicle: "9CVA104", trip: "—", party: "Unassigned", expense: "Express lane toll", status: "Needs review", amount: "$7.40" },
+const screenshots = [
+  {
+    src: "/screenshots/trip-evidence.webp",
+    width: 1600,
+    height: 463,
+    caption: "Every matched charge shows why it matched — plate, date, time, and location.",
+    alt: "FleetReclaim toll evidence for a trip, listing each matched transaction with plate, date, time, location and amount",
+  },
+  {
+    src: "/screenshots/evidence-document.webp",
+    width: 1600,
+    height: 999,
+    caption: "The source statement rows are kept alongside, ready to send as evidence.",
+    alt: "FleetReclaim evidence view highlighting the original toll statement rows for a trip",
+  },
 ];
 
 function Eyebrow({ children, tone = "dark" }: { children: React.ReactNode; tone?: "dark" | "light" }) {
@@ -144,7 +154,7 @@ export default function Home() {
       <main id="top" className="flex-1">
         {/* Hero */}
         <section className="bg-brand text-white">
-          <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:py-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16">
+          <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:py-20 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-14">
             <div>
               <Eyebrow tone="light">Expense recovery for rentals &amp; fleets</Eyebrow>
               <h1 className="mt-4 text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl">
@@ -188,58 +198,16 @@ export default function Home() {
             </div>
 
             {/* Product preview */}
-            <div className="min-w-0 overflow-hidden rounded-xl border border-white/15 bg-white p-4 shadow-2xl shadow-black/20">
-              <div className="flex items-center justify-between border-b border-line pb-3">
-                <div className="flex items-center gap-2">
-                  <Image src="/logo.png" alt="" width={20} height={20} className="h-5 w-5" />
-                  <span className="text-sm font-semibold text-ink">Recovery</span>
-                </div>
-                <span className="rounded-full bg-brand-soft px-2.5 py-1 text-[11px] font-semibold text-brand">
-                  4 of 5 matched
-                </span>
-              </div>
-
-              <div className="mt-3 -mx-1 overflow-x-auto px-1">
-                <table className="w-full min-w-[440px] text-left text-[12.5px]">
-                  <thead>
-                    <tr className="text-[10.5px] uppercase tracking-[0.05em] text-ink-muted">
-                      <th className="pb-2 font-semibold">Vehicle</th>
-                      <th className="pb-2 font-semibold">Trip</th>
-                      <th className="pb-2 font-semibold">Responsible Party</th>
-                      <th className="pb-2 font-semibold">Expense</th>
-                      <th className="pb-2 font-semibold">Status</th>
-                      <th className="pb-2 text-right font-semibold">Recoverable</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-ink">
-                    {rows.map(row => (
-                      <tr key={row.vehicle} className="border-t border-line">
-                        <td className="py-2.5 font-mono text-[11.5px]">{row.vehicle}</td>
-                        <td className="py-2.5 text-ink-muted">{row.trip}</td>
-                        <td className="py-2.5">{row.party}</td>
-                        <td className="py-2.5 text-ink-muted">{row.expense}</td>
-                        <td className="py-2.5">
-                          <span
-                            className={`rounded-full px-2 py-0.5 text-[10.5px] font-semibold ${
-                              row.status === "Matched"
-                                ? "bg-brand-soft text-brand"
-                                : "bg-amber-50 text-amber-700"
-                            }`}
-                          >
-                            {row.status}
-                          </span>
-                        </td>
-                        <td className="py-2.5 text-right font-semibold">{row.amount}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="mt-3 flex items-center justify-between border-t border-line pt-3 text-[12.5px]">
-                <span className="text-ink-muted">Trip reimbursements identified</span>
-                <span className="font-semibold text-ink">$133.25</span>
-              </div>
+            <div className="min-w-0 overflow-hidden rounded-xl border border-white/15 bg-white p-2 shadow-2xl shadow-black/20">
+              <Image
+                src="/screenshots/recovery-dashboard.webp"
+                alt="FleetReclaim recovery dashboard showing matched and unmatched transactions, statement total, and the recoverable amount per trip"
+                width={1600}
+                height={731}
+                priority
+                sizes="(min-width: 1024px) 40vw, 92vw"
+                className="h-auto w-full rounded-lg"
+              />
             </div>
           </div>
         </section>
@@ -337,6 +305,24 @@ export default function Home() {
                   <h3 className="mt-4 text-[16px] font-semibold text-ink">{title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-ink-muted">{body}</p>
                 </div>
+              ))}
+            </div>
+
+            <div className="mt-12 grid gap-6 lg:grid-cols-2">
+              {screenshots.map(shot => (
+                <figure key={shot.src} className="min-w-0">
+                  <div className="overflow-hidden rounded-xl border border-line bg-canvas p-2 shadow-lg shadow-black/5">
+                    <Image
+                      src={shot.src}
+                      alt={shot.alt}
+                      width={shot.width}
+                      height={shot.height}
+                      sizes="(min-width: 1024px) 45vw, 92vw"
+                      className="h-auto w-full rounded-lg"
+                    />
+                  </div>
+                  <figcaption className="mt-3 text-sm text-ink-muted">{shot.caption}</figcaption>
+                </figure>
               ))}
             </div>
           </div>
