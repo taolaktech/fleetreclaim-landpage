@@ -4,6 +4,7 @@ const navLinks = [
   { href: "#who-its-for", label: "Who it's for" },
   { href: "#how-it-works", label: "How it works" },
   { href: "#use-cases", label: "Use cases" },
+  { href: "#pricing", label: "Pricing" },
 ];
 
 export function SiteHeader() {

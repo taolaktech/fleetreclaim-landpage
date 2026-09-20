@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { Pricing } from "@/components/pricing";
 import {
   ArrowIcon,
   BoxIcon,
@@ -357,6 +358,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <Pricing />
 
         {/* Closing CTA */}
         <section className="bg-brand text-white">
