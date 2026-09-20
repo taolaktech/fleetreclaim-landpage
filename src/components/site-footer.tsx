@@ -15,6 +15,15 @@ export function SiteFooter() {
               Expense recovery and reconciliation software for rental hosts, private rental
               businesses, and commercial fleets.
             </p>
+            <p className="mt-4 text-sm text-ink-muted">
+              Questions?{" "}
+              <a
+                href="mailto:contact@fleetreclaim.com"
+                className="font-medium text-brand hover:underline"
+              >
+                contact@fleetreclaim.com
+              </a>
+            </p>
           </div>
 
           <nav aria-label="Footer" className="flex flex-col gap-2 text-sm">
@@ -22,6 +31,7 @@ export function SiteFooter() {
             <a href="#how-it-works" className="text-ink-muted hover:text-ink">How it works</a>
             <a href="#use-cases" className="text-ink-muted hover:text-ink">Use cases</a>
             <a href="#pricing" className="text-ink-muted hover:text-ink">Pricing</a>
+            <a href="mailto:contact@fleetreclaim.com" className="text-ink-muted hover:text-ink">Contact</a>
             <CtaLink
               href="https://app.fleetreclaim.com"
               ctaName="start_recovering"
