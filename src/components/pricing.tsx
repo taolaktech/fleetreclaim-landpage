@@ -1,7 +1,8 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ArrowIcon, CheckIcon } from "@/components/icons";
+import { trackCtaClick, trackEvent, withAttribution } from "@/lib/analytics";
 
 // The app reads ?view= (not ?billing=), so both CTAs deep-link to its Billing page.
 const BILLING_URL = "https://app.fleetreclaim.com/?view=billing";
@@ -31,9 +32,33 @@ export function Pricing() {
   const [billing, setBilling] = useState<Billing>("monthly");
   const groupId = useId();
   const annual = billing === "annual";
+  const sectionRef = useRef<HTMLElement>(null);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    const anchor = ctaRef.current;
+    if (anchor) anchor.href = withAttribution(BILLING_URL);
+  }, []);
+
+  // `pricing_view` fires once, the first time the section is meaningfully visible.
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          trackEvent("pricing_view");
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="pricing" className="scroll-mt-20 border-y border-line bg-white">
+    <section ref={sectionRef} id="pricing" className="scroll-mt-20 border-y border-line bg-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:py-20 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-brand">
@@ -81,7 +106,10 @@ export function Pricing() {
                   role="radio"
                   id={`${groupId}-${option}`}
                   aria-checked={billing === option}
-                  onClick={() => setBilling(option)}
+                  onClick={() => {
+                    setBilling(option);
+                    trackEvent("billing_period_selected", { billing_period: option });
+                  }}
                   className={`rounded-md px-3 py-1.5 text-[13px] font-semibold capitalize transition-colors ${
                     billing === option
                       ? "bg-brand text-white"
@@ -116,7 +144,9 @@ export function Pricing() {
             </p>
 
             <a
+              ref={ctaRef}
               href={BILLING_URL}
+              onClick={() => trackCtaClick("get_started", "pricing", BILLING_URL)}
               className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-hover"
             >
               Get Started

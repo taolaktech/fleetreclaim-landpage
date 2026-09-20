@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CtaLink } from "@/components/cta-link";
 
 const navLinks = [
   { href: "#who-its-for", label: "Who it's for" },
@@ -24,12 +25,14 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <a
+        <CtaLink
           href="https://app.fleetreclaim.com"
+          ctaName="start_recovering"
+          ctaLocation="navigation"
           className="ml-auto rounded-md bg-white px-4 py-2 text-sm font-semibold text-brand transition-colors hover:bg-brand-soft md:ml-0"
         >
           Start Recovering
-        </a>
+        </CtaLink>
       </div>
     </header>
   );

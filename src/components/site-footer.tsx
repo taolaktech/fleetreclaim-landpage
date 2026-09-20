@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { CtaLink } from "@/components/cta-link";
 
 export function SiteFooter() {
   return (
@@ -21,9 +22,14 @@ export function SiteFooter() {
             <a href="#how-it-works" className="text-ink-muted hover:text-ink">How it works</a>
             <a href="#use-cases" className="text-ink-muted hover:text-ink">Use cases</a>
             <a href="#pricing" className="text-ink-muted hover:text-ink">Pricing</a>
-            <a href="https://app.fleetreclaim.com" className="font-semibold text-brand hover:underline">
+            <CtaLink
+              href="https://app.fleetreclaim.com"
+              ctaName="start_recovering"
+              ctaLocation="footer"
+              className="font-semibold text-brand hover:underline"
+            >
               Start Recovering
-            </a>
+            </CtaLink>
           </nav>
         </div>
 

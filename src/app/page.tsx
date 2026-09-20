@@ -2,6 +2,7 @@ import Image from "next/image";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Pricing } from "@/components/pricing";
+import { CtaLink, TrackedAnchor } from "@/components/cta-link";
 import {
   ArrowIcon,
   BoxIcon,
@@ -158,19 +159,22 @@ export default function Home() {
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <a
+                <CtaLink
                   href={APP_URL}
+                  ctaName="start_recovering"
+                  ctaLocation="hero"
                   className="inline-flex items-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-brand transition-colors hover:bg-brand-soft"
                 >
                   Start Recovering
                   <ArrowIcon />
-                </a>
-                <a
+                </CtaLink>
+                <TrackedAnchor
                   href="#how-it-works"
+                  event="how_it_works_click"
                   className="inline-flex items-center rounded-md border border-white/30 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
                 >
                   See How It Works
-                </a>
+                </TrackedAnchor>
               </div>
 
               <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
@@ -373,13 +377,15 @@ export default function Home() {
                 Upload your first statement and see what&apos;s recoverable.
               </p>
             </div>
-            <a
+            <CtaLink
               href={APP_URL}
+              ctaName="start_recovering"
+              ctaLocation="final_cta"
               className="inline-flex w-fit items-center gap-2 rounded-md bg-white px-6 py-3 text-sm font-semibold text-brand transition-colors hover:bg-brand-soft"
             >
               Start Recovering
               <ArrowIcon />
-            </a>
+            </CtaLink>
           </div>
         </section>
       </main>
